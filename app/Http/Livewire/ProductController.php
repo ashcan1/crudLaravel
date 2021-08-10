@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Product;
 
+
 class ProductController extends Component
 {
     public $products, $name, $price, $mobile, $product_id;
@@ -21,6 +22,7 @@ class ProductController extends Component
         $this->resetCreateForm();
         $this->openModalPopover();
     }
+
     public function openModalPopover()
     {
         $this->isDialogOpen = true;
@@ -30,16 +32,19 @@ class ProductController extends Component
     {
         $this->isDialogOpen = false;
     }
+
     private function resetCreateForm(){
         $this->name = '';
         $this->price = '';
     }
+    
     public function store()
     {
         $this->validate([
             'name' => 'required',
             'price' => 'required',
         ]);
+    
         Product::updateOrCreate(['id' => $this->product_id], [
             'name' => $this->name,
             'price' => $this->price,
@@ -66,9 +71,4 @@ class ProductController extends Component
         Product::find($id)->delete();
         session()->flash('message', 'Product removed!');
     }    
-
-
-    
-
-
 }
